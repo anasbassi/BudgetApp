@@ -1,19 +1,13 @@
 class DealsController < ApplicationController
-  def index
-    @category_id = params[:category_id]
-    join = CategoryDeal.where(category_id: @category_id)
-    deal_ids = join.pluck(:deal_id)
-    @deals = []
-    deal_ids.map do |id|
-      @deals << Deal.find(id)
-    end
-    @deals = @deals.sort_by(&:created_at).reverse
-    # @deals = join.where()where(author_id: current_user.id).order(created_at: :desc)
-    @total = @deals.map(&:amount).inject(0, &:+)
-  end
-
   def new
-    @deal = Deal.new
+    @category = Category.find(params[:category_id])
+
+    if @category.author == current_user
+      @deal = Deal.new
+    else
+      flash[:alert] = 'You can only create deals from your categories'
+      redirect_to categories_path
+    end
   end
 
   def create
@@ -26,13 +20,15 @@ class DealsController < ApplicationController
         flash[:alert] = @deal.errors.messages
         render :new
       else
-        redirect_to category_deals_path(category.id)
+        redirect_to category_path(category.id)
       end
     else
       flash[:alert] = @deal.errors.messages
       render :new
     end
   end
+
+  private
 
   def deal_params
     params.require(:deal).permit(:name, :amount).merge(author_id: current_user.id)

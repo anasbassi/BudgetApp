@@ -1,0 +1,18 @@
+<%= form_with model: model, url: path, class: "d-flex flex-column justify-content-between align-items-between" do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, placeholder: 'Name', required: true, autofocus: true, class: "form-control" %>
+  </div>
+  <% if model.is_a?(Deal) %>
+    <div class="mb-3">
+      <%= form.label :amount, class: "form-label" %>
+      <%= form.number_field :amount, placeholder: '0', required: true, class: "form-control" %>
+    </div>
+  <% elsif model.is_a?(Category) %>
+    <div class="mb-3">
+      <%= form.label :icon, class: "form-label" %>
+      <%= form.text_field :icon, placeholder: 'Icon', required: true, class: "form-control" %>
+    </div>
+  <% end %>
+  <%= form.submit 'Save', class: "btn btn-primary", data:  { turbo: false } %>
+<% end %>

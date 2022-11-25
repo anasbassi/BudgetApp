@@ -30,7 +30,15 @@ class CategoriesController < ApplicationController
     end
   end
 
-  def splash; end
+  def show
+    @category = Category.find(params[:id])
+    if @category.author != current_user
+      flash[:alert] = 'You can only see what you created'
+      redirect_to categories_path
+    end
+    @deals = @category.deals.order(created_at: :desc)
+    @total = @deals.sum(:amount)
+  end
 
   private
 
