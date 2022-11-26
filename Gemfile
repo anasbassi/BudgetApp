@@ -7,6 +7,7 @@ gem 'cancancan'
 gem 'devise'
 gem 'devise-bootstrap5'
 gem 'devise-i18n'
+gem 'ffi', github: 'ffi/ffi', submodules: true
 gem 'jwt'
 gem 'rack-cors'
 gem 'simple_command'
