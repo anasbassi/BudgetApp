@@ -8,7 +8,7 @@
 
 ## Live Version
 
-- A live version of the project can be seen [here](https://budgets--app.herokuapp.com/)
+- A live version of the project can be seen [here](https://morning-shelf-34545.herokuapp.com/)
 
 ## Getting Started
 
@@ -33,11 +33,7 @@ To get a local copy up and running follow these simple example steps.
 
 To run tests, run the following command:
 
-- Unit tests
-  - `rspec spec/models`
-
-- Integration tests
-  - `rspec spec/integration`
+- `rspec spec/integration`
 
 ## Author
 
