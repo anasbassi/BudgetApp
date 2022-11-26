@@ -1,24 +1,35 @@
-<div class="d-flex flex-column justify-content-between align-items-between" style="height: 80vh">
-  <h1 class="mb-3">Categories</h1>
+<div class="container d-flex flex-column justify-content-center">
+  <h1 class="mb-5">Budget App</h1>
 
-  <div>
-    <% @categories.each do |category| %>
-      <div class="card mb-1">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <img src="<%=category.icon %>, alt="Icon pic", height="40px">
-            </div>
-            <div class="col">
-              <%= link_to category.name, category_path(category) %>
-            </div>
-            <div class="col">
-              $<%= category.deals.sum(:amount) %>
+  <% if user_signed_in? %>
+    <div class="d-flex flex-column justify-content-between align-items-between" style="height: 80vh">
+      <h1 class="mb-3">Categories</h1>
+
+      <div>
+        <% @categories.each do |category| %>
+        <div class="card mb-1">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <img src="<%=category.icon %>, alt="Icon pic", height="40px">
+              </div>
+              <div class="col">
+                <%= link_to category.name, category_path(category) %>
+              </div>
+              <div class="col">
+                $<%= category.deals.sum(:amount) %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
     <% end %>
+    </div>
+    <%= link_to "Add new category", new_category_path, class: "btn btn-success mt-3" %>
   </div>
-  <%= link_to "Add new category", new_category_path, class: "btn btn-success mt-3" %>
+
+    <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-warning mb-2" %>
+  <% else %>
+    <%= link_to "Sign in", new_user_session_path, class: "btn btn-primary mb-2" %><br>
+    <%= link_to "Sign up", new_user_registration_path, class: "btn btn-info" %>
+  <% end %>
 </div>
