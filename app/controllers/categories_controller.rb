@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  skip_before_action :authenticate_user!, except: :splash
+  before_action :authenticate_user!, except: :splash
 
   def index
     @categories = Category.where(author_id: current_user.id)
